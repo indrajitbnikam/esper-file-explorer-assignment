@@ -58,4 +58,68 @@ export const folders: IFolder[] = [
     lastUpdated: 'Just now',
     children: []
   },
+  {
+    id: 5,
+    fullId: '5',
+    name: 'Folder 5',
+    lastUpdated: 'Yesterday',
+    children: []
+  },
+  {
+    id: 6,
+    fullId: '6',
+    name: 'Folder 6',
+    lastUpdated: 'Just now',
+    children: []
+  },
+  {
+    id: 7,
+    fullId: '7',
+    name: 'Folder 7',
+    lastUpdated: 'Just now',
+    children: []
+  },
+  
+  {
+    id: 8,
+    fullId: '8',
+    name: 'Folder 8',
+    lastUpdated: 'Yesterday',
+    children: []
+  },
+  {
+    id: 9,
+    fullId: '9',
+    name: 'Folder 9',
+    lastUpdated: 'Just now',
+    children: []
+  },
+  {
+    id: 10,
+    fullId: '10',
+    name: 'Folder 10',
+    lastUpdated: 'Just now',
+    children: []
+  },
+  {
+    id: 11,
+    fullId: '11',
+    name: 'Folder 11',
+    lastUpdated: 'Yesterday',
+    children: []
+  },
+  {
+    id: 12,
+    fullId: '12',
+    name: 'Folder 12',
+    lastUpdated: 'Just now',
+    children: []
+  },
+  {
+    id: 13,
+    fullId: '13',
+    name: 'Folder 13',
+    lastUpdated: 'Just now',
+    children: []
+  },
 ]
