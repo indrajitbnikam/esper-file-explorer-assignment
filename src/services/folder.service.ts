@@ -110,15 +110,13 @@ export const rearrangeFolder = (
   folders: IFolder[],
   folderFullId: string,
   currentIndex: number,
-  desitinationIndex: number): IFolder[] =>
+  destinationIndex: number): IFolder[] =>
   {
     let tempFolders = cloneDeep(folders);
     const idArr = folderFullId.split('-').map(id => Number(id));
 
     if (idArr.length === 1) {
-      const tempFolder = tempFolders[currentIndex];
-      tempFolders[currentIndex] = tempFolders[desitinationIndex];
-      tempFolders[desitinationIndex] = tempFolder;
+      tempFolders = changeFolderPositionInCollection(tempFolders, currentIndex, destinationIndex);
     } else {
       let parentFolder: IFolder = tempFolders.find(f => f.id === idArr[0]) as IFolder;
       idArr.forEach((id, index) => {
@@ -127,12 +125,43 @@ export const rearrangeFolder = (
         }
       })
 
-      const tempFolder = parentFolder.children[currentIndex];
-      parentFolder.children[currentIndex] = parentFolder.children[desitinationIndex];
-      parentFolder.children[desitinationIndex] = tempFolder;
+      parentFolder.children = changeFolderPositionInCollection(parentFolder.children, currentIndex, destinationIndex);
     }
 
     return tempFolders;
+}
+
+const changeFolderPositionInCollection = (folders: IFolder[], currentIndex: number, destinationIndex: number): IFolder[] => {
+  const tempFolders: IFolder[] = [];
+  if (destinationIndex === 0) {
+    tempFolders.push(folders[currentIndex]);
+    for (let i=0; i<folders.length; i++) {
+      if(i !== currentIndex) tempFolders.push(folders[i])
+    }
+  } else if (destinationIndex === folders.length - 1) {
+    for (let i=0; i<folders.length; i++) {
+      if(i !== currentIndex) tempFolders.push(folders[i])
+    }
+    tempFolders.push(folders[currentIndex]);
+  } else if (currentIndex < destinationIndex) {
+    for (let i=0; i<=destinationIndex; i++) {
+      if (i !== currentIndex) tempFolders.push(folders[i]);
+    }
+    tempFolders.push(folders[currentIndex]);
+    for (let i=destinationIndex+1; i<folders.length; i++) {
+      tempFolders.push(folders[i]);
+    }
+  } else {
+    for (let i=0; i<destinationIndex; i++) {
+      tempFolders.push(folders[i]);
+    }
+    tempFolders.push(folders[currentIndex]);
+    for (let i=destinationIndex; i<folders.length; i++) {
+      if (i !== currentIndex) tempFolders.push(folders[i]);
+    }
+  }
+
+  return tempFolders;
 }
 
 export const moveFolder = (
