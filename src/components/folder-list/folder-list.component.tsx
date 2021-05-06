@@ -2,13 +2,15 @@ import React from 'react';
 import './folder-list.styles.scss';
 import Folder from '../folder/folder.component';
 import { Droppable } from 'react-beautiful-dnd';
-import { folders } from './folder-list.data';
+import { IFolder } from '../../models/folder.model';
 
-const FolderList = () => {
-
-  const handleFolderOpen = (folderFullId: string) => {
-    console.log(folderFullId);
-  }
+const FolderList = ({
+  list,
+  onFolderOpen
+}: {
+  list: IFolder[],
+  onFolderOpen: (folderFullId: string) => void
+}) => {
 
   return (
     <Droppable
@@ -23,16 +25,18 @@ const FolderList = () => {
             ref={provided.innerRef}
           >
             {
-              folders.length ? (
-                folders.map((fd, index) => (
+              list.length ? (
+                list.map((fd, index) => (
                   <Folder
                     key={fd.fullId}
                     data={fd}
                     index={index}
-                    onFolderOpen={handleFolderOpen}
+                    onFolderOpen={onFolderOpen}
                   />
                 ))
-              ) : null
+              ) : (
+                <span>Folder is empty</span>
+              )
             }
             {provided.placeholder}
           </div>
