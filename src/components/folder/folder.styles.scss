@@ -1,0 +1,40 @@
+.folder {
+  margin: 4px 0;
+  height: 60px;
+  width: 100%;
+  box-shadow: 1px 1px 3px rgba(5, 5, 5,0.1);
+
+  display: flex;
+  align-self: center;
+
+  .folder-icon {
+    width: 100px;
+    display: grid;
+    place-items: center;
+
+    span {
+      svg {
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+
+  .folder-name {
+    width: 500px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 16px;
+  }
+
+  .folder-last-updated {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: #ccc;
+  }
+}
