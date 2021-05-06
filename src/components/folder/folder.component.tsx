@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { FolderAddTwoTone, FolderTwoTone } from '@ant-design/icons';
 import './folder.styles.scss';
 import { IFolder } from '../../models/folder.model';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Input, Menu, Modal } from 'antd';
 
 const Folder = (
   {
     data,
     index,
     onFolderOpen,
+    onFolderDelete,
+    onFolderRename
   }: {
     data: IFolder,
     index: number,
-    onFolderOpen: (folderFullId: string) => void
+    onFolderOpen: (folderFullId: string) => void,
+    onFolderDelete: (folderFullId: string) => void,
+    onFolderRename: (folderFullId: string, newName: string) => void
   }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [newFolderNameText, setNewFolderNameText] = useState<string>(data.name);
+
+  const handleRenameFolder = () => {
+    onFolderRename(data.fullId, newFolderNameText);
+    setNewFolderNameText(data.name);
+  }
 
   const folderMenu = (fullId: string) => (
     <Menu>
-      <Menu.Item key="1" onClick={() => console.log('Rename ', fullId)}>Rename</Menu.Item>
-      <Menu.Item key="2" onClick={() => console.log('Duplicate ', fullId)}>Duplicate</Menu.Item>
-      <Menu.Item key="3" onClick={() => console.log('Delete ', fullId)}>Delete</Menu.Item>
+      <Menu.Item key="1" onClick={() => setIsModalVisible(true)}>Rename</Menu.Item>
+      {/* <Menu.Item key="2" onClick={() => console.log('Duplicate ', fullId)}>Duplicate</Menu.Item> */}
+      <Menu.Item key="3" onClick={() => onFolderDelete(data.fullId)}>
+        Delete
+      </Menu.Item>
     </Menu>
   );
 
@@ -63,6 +76,27 @@ const Folder = (
                   data.lastUpdated
                 }
               </span>
+
+              <Modal
+                title='Rename folder'
+                visible={isModalVisible}
+                destroyOnClose
+                onOk={() => {
+                  handleRenameFolder();
+                  setIsModalVisible(false);
+                }}
+                onCancel={() => {
+                  setIsModalVisible(false);
+                  setNewFolderNameText('');
+                }}
+                maskClosable
+              >
+                <Input
+                  value={newFolderNameText}
+                  onChange={e => setNewFolderNameText(e.target.value)}
+                  placeholder='Enter folder name'
+                />
+              </Modal>
             </div>
           </Dropdown>
         )

@@ -6,10 +6,14 @@ import { IFolder } from '../../models/folder.model';
 
 const FolderList = ({
   list,
-  onFolderOpen
+  onFolderOpen,
+  onFolderDelete,
+  onFolderRename
 }: {
   list: IFolder[],
-  onFolderOpen: (folderFullId: string) => void
+  onFolderOpen: (folderFullId: string) => void,
+  onFolderDelete: (folderFullId: string) => void,
+  onFolderRename: (folderFullId: string, newName: string) => void
 }) => {
 
   return (
@@ -32,6 +36,8 @@ const FolderList = ({
                     data={fd}
                     index={index}
                     onFolderOpen={onFolderOpen}
+                    onFolderDelete={onFolderDelete}
+                    onFolderRename={onFolderRename}
                   />
                 ))
               ) : (

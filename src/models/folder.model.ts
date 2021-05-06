@@ -7,3 +7,8 @@ export interface IFolder {
   lastUpdated: string;
   children: IFolder[];
 }
+
+export interface Link {
+  id: string;
+  name: string;
+}
