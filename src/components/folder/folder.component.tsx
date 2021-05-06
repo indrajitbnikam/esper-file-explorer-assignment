@@ -1,16 +1,26 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { FolderTwoTone } from '@ant-design/icons';
+import { FolderAddTwoTone, FolderTwoTone } from '@ant-design/icons';
 import './folder.styles.scss';
+import { IFolder } from '../../models/folder.model';
 
-const Folder = ({ folderId, index }: any) => {
+const Folder = (
+  {
+    data,
+    index,
+    onFolderOpen
+  }: {
+    data: IFolder,
+    index: number,
+    onFolderOpen: (folderFullId: string) => void
+  }) => {
   return (
     <Draggable
-      draggableId={folderId}
+      draggableId={data.fullId}
       index={index}
     >
       {
-        (provided) => (
+        (provided, snapshot) => (
           <div
             className='folder'
             ref={provided.innerRef}
@@ -18,13 +28,26 @@ const Folder = ({ folderId, index }: any) => {
             {...provided.dragHandleProps}
           >
             <div className='folder-icon'>
-              <FolderTwoTone />
+              {
+                snapshot.isDragging ? (
+                  <FolderAddTwoTone />
+                ) : (
+                  <FolderTwoTone />
+                )
+              }
             </div>
-            <span className='folder-name'>
-              Folder-{folderId}
+            <span
+              className='folder-name'
+              onClick={() => onFolderOpen(data.fullId)}
+            >
+              {
+                data.name
+              }
             </span>
             <span className='folder-last-updated'>
-              Just Now
+              {
+                data.lastUpdated
+              }
             </span>
           </div>
         )

@@ -21,19 +21,24 @@
   }
 
   .folder-name {
-    width: 500px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 
     font-size: 16px;
+
+    &:hover {
+      cursor: pointer;
+      font-weight: 600;
+    }
   }
 
   .folder-last-updated {
     flex: 1;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
+    padding-right: 100px;
 
     color: #ccc;
   }
